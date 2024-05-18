@@ -1,0 +1,26 @@
+name: CMake on a single platform
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build
+      run: >
+        ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        make;
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmp-macos-x86-64
+        path: bin/*
