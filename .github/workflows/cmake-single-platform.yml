@@ -58,7 +58,7 @@ jobs:
 
     - name: Build
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/bin --host=x86_64-apple-darwin10.10;
+        ./configure --enable-cxx --prefix=${{github.workspace}}/bin CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
         make install;
 
     - name: 'Upload Artifact'
