@@ -45,3 +45,24 @@ jobs:
       with:
         name: gmp-macos-x86-64
         path: bin/*
+
+  build-macosx-x86-64:
+    runs-on: macos-13
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Dependencies
+      run: >
+        brew install texinfo
+
+    - name: Build
+      run: >
+        ./configure --enable-cxx --prefix=${{github.workspace}}/bin --host=x86_64-apple-darwin10.10;
+        make install;
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmp-macosx-x86-64
+        path: bin/*
