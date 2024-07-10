@@ -37,7 +37,7 @@ jobs:
 
     - name: Build
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        CC=clang CXX=clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
         make install;
 
     - name: 'Upload Artifact'
