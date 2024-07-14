@@ -38,6 +38,8 @@ jobs:
     - name: Build
       run: >
         CC=clang CXX=clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        make;
+        make check;
         make install;
 
     - name: 'Upload Artifact'
@@ -59,6 +61,8 @@ jobs:
     - name: Build
       run: >
         CC=clang CXX=clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/bin CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
+        make;
+        make check;
         make install;
 
     - name: 'Upload Artifact'
