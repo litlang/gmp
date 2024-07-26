@@ -11,6 +11,9 @@ jobs:
   build-linux-x86-64:
     runs-on: ubuntu-latest
     steps:
+    - name: checkout repository
+      uses: actions/checkout@v4
+     
     - name: build
       run: >
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
@@ -59,7 +62,7 @@ jobs:
 
     - name: Build
       run: >
-        CC=clang CXX=clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
         make;
         make check;
         make install;
@@ -82,7 +85,7 @@ jobs:
 
     - name: Build
       run: >
-        CC=clang CXX=clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/bin CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
+        ./configure --enable-cxx --prefix=${{github.workspace}}/bin CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
         make;
         make check;
         make install;
