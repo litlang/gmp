@@ -41,7 +41,8 @@ jobs:
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: >
-        export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
+        export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
+        ls ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin;
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
         make check;
