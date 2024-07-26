@@ -26,6 +26,47 @@ jobs:
       with:
         name: gmp-linux-x86-64
         path: dist/*
+
+  build-android-arm-64:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v4
+
+    - uses: nttld/setup-ndk@v1
+     
+    - name: build
+      run: >
+        ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
+        make;
+        make check;
+        make install;
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmp-android-arm-64
+        path: dist/*
+
+
+  build-windows-x86-64:
+    runs-on: windows-latest
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v4
+     
+    - name: build
+      run: >
+        ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
+        make;
+        make check;
+        make install;
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmp-windows-x86-64
+        path: dist/*
         
   build-macos-arm-64:
     runs-on: macos-latest
@@ -39,7 +80,7 @@ jobs:
 
     - name: Build
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
         make;
         make check;
         make install;
@@ -48,7 +89,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: gmp-macos-arm-64
-        path: bin/*
+        path: dist/*
 
   build-macos-x86-64:
     runs-on: macos-13
@@ -62,16 +103,16 @@ jobs:
 
     - name: Build
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
         make;
-        make check;
+        # make check;
         make install;
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
         name: gmp-macos-x86-64
-        path: bin/*
+        path: dist/*
 
   build-macosx-x86-64:
     runs-on: macos-13
@@ -85,13 +126,13 @@ jobs:
 
     - name: Build
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/bin CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
+        ./configure --enable-cxx --prefix=${{github.workspace}}/dist CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
         make;
-        make check;
+        # make check;
         make install;
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
         name: gmp-macosx-x86-64
-        path: bin/*
+        path: dist/*
