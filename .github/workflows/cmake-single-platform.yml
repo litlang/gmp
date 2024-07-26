@@ -40,7 +40,6 @@ jobs:
 
     - name: build
       run: >
-        export ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }};
         export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
         echo $PATH;
         ls .;
@@ -49,6 +48,9 @@ jobs:
         make;
         make check;
         make install;
+
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
