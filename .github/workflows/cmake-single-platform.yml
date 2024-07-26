@@ -36,11 +36,16 @@ jobs:
     - uses: nttld/setup-ndk@v1
       with:
         ndk-version: r26d
+        add-to-path: true
+    - run: ./build.sh
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
      
     - name: build
       run: >
-        export ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }};
+        # export ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }};
         export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
+        echo $PATH;
         ls ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin;
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
