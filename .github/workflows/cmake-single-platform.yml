@@ -34,15 +34,14 @@ jobs:
       uses: actions/checkout@v4
 
     - uses: nttld/setup-ndk@v1
+      id: setup-ndk
       with:
         ndk-version: r26d
-        add-to-path: true
 
     - name: build
       run: >
         export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
         echo $PATH;
-        ls .;
         ls ${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin;
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
