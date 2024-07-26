@@ -38,7 +38,10 @@ jobs:
         ndk-version: r26d
      
     - name: build
+      env:
+        ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       run: >
+        export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
         make check;
@@ -62,7 +65,7 @@ jobs:
     - name: build
       shell: msys2 {0}
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
+        ./configure --enable-cxx --prefix='${{github.workspace}}/dist';
         make;
         make check;
         make install;
