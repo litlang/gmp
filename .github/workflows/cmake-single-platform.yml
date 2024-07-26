@@ -8,6 +8,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-linux-x86-64:
+    runs-on: ubuntu-latest
+    steps:
+    - name: build
+      run: >
+        ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
+        make;
+        make check;
+        make install;
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gmp-linux-x86-64
+        path: dist/*
+        
   build-macos-arm-64:
     runs-on: macos-latest
 
@@ -21,6 +37,8 @@ jobs:
     - name: Build
       run: >
         ./configure --enable-cxx --prefix=${{github.workspace}}/bin;
+        make;
+        make check;
         make install;
 
     - name: 'Upload Artifact'
