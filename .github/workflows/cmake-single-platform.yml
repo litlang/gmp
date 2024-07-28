@@ -44,7 +44,7 @@ jobs:
         export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
         CC=aarch64-linux-android29-clang CXX=aarch64-linux-android29-clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
-        # make check;
+        make check || true;
         make install;
 
       env:
@@ -116,7 +116,7 @@ jobs:
       run: >
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
         make;
-        # make check;
+        make check || true;
         make install;
 
     - name: 'Upload Artifact'
@@ -139,7 +139,7 @@ jobs:
       run: >
         ./configure --enable-cxx --prefix=${{github.workspace}}/dist CFLAGS="-mmacos-version-min=10.9" CXXFLAGS="-mmacos-version-min=10.9";
         make;
-        # make check;
+        make check || true;
         make install;
 
     - name: 'Upload Artifact'
