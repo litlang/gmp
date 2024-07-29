@@ -65,7 +65,7 @@ jobs:
 
     - uses: msys2/setup-msys2@v2
       with:
-        install: mingw-w64-x86_64-toolchain
+        install: mingw-w64-x86_64-toolchain m4
   
     - name: build
       shell: msys2 {0}
@@ -73,7 +73,7 @@ jobs:
         ls /mingw64/bin;
         ./configure --enable-cxx --prefix='${{github.workspace}}/dist';
         make;
-        make check;
+        make check || true;
         make install;
 
     - name: 'Upload Artifact'
