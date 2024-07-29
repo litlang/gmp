@@ -68,7 +68,7 @@ jobs:
     - name: build
       shell: msys2 {0}
       run: >
-        which gcc g++;
+        tree /mingw64;
         ./configure --enable-cxx --prefix='${{github.workspace}}/dist';
         make;
         make check;
