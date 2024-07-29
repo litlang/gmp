@@ -65,7 +65,7 @@ jobs:
 
     - uses: msys2/setup-msys2@v2
       with:
-        install: mingw-w64-x86_64-toolchain m4
+        install: base-devel
   
     - name: build
       shell: msys2 {0}
