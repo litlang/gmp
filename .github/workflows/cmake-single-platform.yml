@@ -42,9 +42,9 @@ jobs:
     - name: build
       run: >
         export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
-        CC=aarch64-linux-android29-clang CXX=aarch64-linux-android29-clang++ ./configure --enable-cxx --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
+        CC=aarch64-linux-android29-clang CXX=aarch64-linux-android29-clang++ ./configure --enable-cxx --enable-static --enable-shared --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
-        make check || true;
+        make check;
         make install;
 
       env:
