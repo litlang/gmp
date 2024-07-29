@@ -68,6 +68,7 @@ jobs:
     - name: build
       shell: msys2 {0}
       run: >
+        which gcc g++;
         ./configure --enable-cxx --prefix='${{github.workspace}}/dist';
         make;
         make check;
