@@ -70,7 +70,7 @@ jobs:
     - name: build
       shell: msys2 {0}
       run: >
-        ./configure --enable-cxx --prefix=$(cygpath -u ${{github.workspace}})/dist;
+        ./configure --enable-cxx --prefix=$(cygpath -u '${{github.workspace}}')/dist;
         make;
         make check || true;
         make install;
