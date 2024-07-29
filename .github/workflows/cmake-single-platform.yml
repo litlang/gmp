@@ -65,12 +65,11 @@ jobs:
 
     - uses: msys2/setup-msys2@v2
       with:
-        install: base-devel
+        install: mingw-w64-x86_64-toolchain base-devel
   
     - name: build
       shell: msys2 {0}
       run: >
-        ls /mingw64/bin;
         ./configure --enable-cxx --prefix='${{github.workspace}}/dist';
         make;
         make check || true;
