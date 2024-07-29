@@ -16,7 +16,7 @@ jobs:
      
     - name: build
       run: >
-        ./configure --enable-cxx --prefix=${{github.workspace}}/dist;
+        ./configure --enable-cxx --prefix=$(cygpath -u ${{github.workspace}})/dist;
         make;
         make check;
         make install;
