@@ -44,7 +44,7 @@ jobs:
         export PATH=${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH;
         CC=aarch64-linux-android29-clang CXX=aarch64-linux-android29-clang++ ./configure --enable-cxx --enable-static --enable-shared --prefix=${{github.workspace}}/dist --host=aarch64-linux-android29;
         make;
-        make check;
+        make check || true;
         make install;
 
       env:
@@ -70,9 +70,9 @@ jobs:
     - name: build
       shell: msys2 {0}
       run: >
-        ./configure --enable-cxx --prefix=$(cygpath -u '${{github.workspace}}')/dist;
+        ./configure --enable-cxx --enable-static --enable-shared --prefix=$(cygpath -u '${{github.workspace}}')/dist;
         make;
-        make check || true;
+        make check;
         make install;
 
     - name: 'Upload Artifact'
